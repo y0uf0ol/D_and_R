@@ -39,12 +39,9 @@ This guide provides detailed instructions on how to fill out the Detection Rule 
 
 - **Response:** [Recommended Response Procedures or Actions]
   - *Why:* Guides users on what to do when the rule is triggered, such as alerting, blocking actions, or further investigation steps.
-
 - **False Positive:** [Known False Positives and Handling Instructions]
   - *Why:* Helps users understand situations where the rule might trigger incorrectly and how to handle such cases.
-
 - **Severity:** [Low / Medium / High / Critical]
   - *Why:* Indicates the importance or impact level of the detected issue, aiding in prioritization of responses.
-
 - **Confidence:** [Percentage or Low / Medium / High]
   - *Why:* Reflects how reliable the rule is in accurately detecting the intended threat or behavior.
