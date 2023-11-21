@@ -28,3 +28,9 @@
 - **Severity:** [Severity Level]
 - **Confidence:** [Confidence Level]
  
+
+ ## Unit Test
+
+```yaml
+[Insert Rule Code Here]
+```
