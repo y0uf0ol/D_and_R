@@ -37,6 +37,8 @@ DeviceEvents
  
 
  ## Unit Test
+- **Source:** https://atomicredteam.io/persistence/T1136.001/
+
 ```yaml
 net user /add "#{username}" "#{password}"
 net localgroup administrators "#{username}" /add
