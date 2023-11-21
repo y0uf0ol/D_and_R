@@ -1,4 +1,4 @@
-# New Local Use added to Local Administrator Group
+# New Local User added to Local Administrator Group
 
 ## Basic Information
 
