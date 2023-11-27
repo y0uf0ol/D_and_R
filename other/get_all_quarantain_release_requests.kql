@@ -1,0 +1,6 @@
+let Portal = CloudAppEvents
+| where ActionType contains "Release-QuarantineMessage"
+| where ActivityObjects contains "REQUEST";
+let Mail = CloudAppEvents
+| where ActionType contains "QuarantineRequestReleaseMessage";
+union Portal, Mail

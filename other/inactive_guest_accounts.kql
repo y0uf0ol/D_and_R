@@ -1,0 +1,17 @@
+let lookback = ago(180d);
+let Tenant_ID = 'XXX';
+let active_guest = union SigninLogs, AADNonInteractiveUserSignInLogs
+    | where TimeGenerated between(ago(90d) .. ago(1h))
+    | where ResultType == 0
+    | where UserType == 'Guest'
+    | where HomeTenantId != Tenant_ID
+    | summarize by UserId;
+union SigninLogs, AADNonInteractiveUserSignInLogs
+| where TimeGenerated > lookback
+| where UserId !in (active_guest)
+| where UserType == 'Guest'
+| where ResultType == 0
+| where HomeTenantId != Tenant_ID
+| summarize arg_max(TimeGenerated, *) by UserPrincipalName
+| project UserPrincipalName, Last_Login=TimeGenerated
+| sort by Last_Login

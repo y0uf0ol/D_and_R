@@ -1,0 +1,14 @@
+//Sentinel
+//Detect usage of of encoded powershell commands\
+let CMD = dynamic(['cmd.exe', 'powershell.exe', 'cmd', 'powershell', 'pwsh','WindowsTerminal.exe']);
+let encode = dynamic(["-e", "-encodedcommand", "-enc"]);
+union DeviceEvents, DeviceProcessEvents
+| where TimeGenerated > ago(1d)
+| where InitiatingProcessFileName has_any (CMD) or ProcessCommandLine has_any (CMD)
+| where InitiatingProcessCommandLine has_any (encode) or ProcessCommandLine has_any (encode)
+//from this guy here https://techcommunity.microsoft.com/t5/user/viewprofilepage/user-id/744641#profile i just modified it for DeviceProcessEvents
+| extend Base64 = extract(@'\s+([A-Za-z0-9+/]{20}\S+$)',1,ProcessCommandLine )
+| where Base64 != ""
+| extend decoded_Base64 = base64_decode_tostring(Base64)
+| where decoded_Base64 != ""
+| project TimeGenerated, AccountName, DeviceName, ProcessCommandLine, InitiatingProcessCommandLine, Base64, decoded_Base64

@@ -1,0 +1,8 @@
+IntuneAuditLogs
+| where OperationName contains "DeviceManagementConfigurationPolicy"
+| extend Config = todynamic(Properties)
+| extend Changes = Config.Targets
+| extend Pol_Name = Changes.[0].Name
+| extend Pol_Config = Changes.[0].ModifiedProperties
+| mv-expand Pol_Config
+| project TimeGenerated, Identity, Pol_Name , Pol_Config, CorrelationId

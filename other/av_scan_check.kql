@@ -1,0 +1,9 @@
+DeviceTvmInfoGathering
+| evaluate bag_unpack(AdditionalFields)
+| extend Scan_Result = todynamic(AvScanResults)
+| evaluate bag_unpack(Scan_Result)
+| extend Full_scan = todynamic(Full)
+| evaluate bag_unpack(Full_scan, '_Full_Scan')
+| extend Quick_scan = todynamic(Quick)
+| evaluate bag_unpack(Quick_scan, '_Quick_Scan')
+| project DeviceName, _Full_ScanTimestamp, _Quick_ScanTimestamp
