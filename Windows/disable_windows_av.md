@@ -28,7 +28,7 @@ DeviceRegistryEvents
 ```
 
 - **Response:** Check for legimitate use or testing, else run live response script to enable AV again
-- **False Positive:** Admitesting or Troubleshooting Mode
+- **False Positive:** Admin-Testing or Troubleshooting Mode
 - **Severity:** High
 - **Confidence:** High
  
