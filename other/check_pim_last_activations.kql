@@ -1,0 +1,11 @@
+let rolemap = externaldata(Role_Name:string, Role:string)[
+@"https://raw.githubusercontent.com/y0uf0ol/helferchen/main/entra_id_role_map.csv"]
+with(format="csv", ignoreFirstRecord=True);
+AuditLogs
+| where TimeGenerated > ago(7d)
+| where OperationName contains "PIM"
+| where AADOperationType == "ActivateRole"
+| extend Role = tostring(parse_json(AdditionalDetails.[0].value))
+| extend StartTime = parse_json(AdditionalDetails.[3].value)
+| join rolemap on Role
+| summarize max(TimeGenerated) by Identity, ResultReason, Role_Name
