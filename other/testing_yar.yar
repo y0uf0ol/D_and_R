@@ -1,6 +1,6 @@
 rule {
     meta:
-        test = 'yoink'
+        test = "yoink"
     strings:
         $ = "Visual"
     condition:
