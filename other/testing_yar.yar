@@ -1,4 +1,4 @@
-rule {
+rule testing_af {
     meta:
         test = "yoink"
     strings:
