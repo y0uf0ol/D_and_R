@@ -21,14 +21,16 @@
 
 ```yaml
 let curl = (DeviceProcessEvents
-| where ProcessCommandLine contains "curl" and ProcessCommandLine contains "github" //these are examples
+| where ProcessCommandLine contains "curl" and ProcessCommandLine contains "github"
 | project Timestamp);
+let device_id = (DeviceProcessEvents
+| where ProcessCommandLine contains "curl" and ProcessCommandLine contains "github"
+| project DeviceId);
 DeviceProcessEvents
 | where Timestamp between ((toscalar(curl) - 5min) .. (toscalar(curl) + 5min))
+| where DeviceId in (device_id)
 | project Timestamp, DeviceId, FileName, FolderPath, SHA1, ProcessCommandLine, InitiatingProcessCommandLine, ReportId
-| sort by Timestamp desc 
-
-```
+| sort by Timestamp desc ```
 
 - **Response:** Check for actions before and after the Alert
 - **False Positive:** Legit usage of a downloaded tool
